@@ -1,0 +1,27 @@
+// First Bluetooth attempt. 
+
+int const bluePin = 11;
+int incomingByte = 0;
+
+
+void setup() {
+  pinMode(bluePin, OUTPUT);
+  digitalWrite(bluePin, LOW);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  if(Serial.available()>  0){
+    incomingByte = Serial.read();
+  }
+  
+  if(incomingByte == 0){ 
+    digitalWrite(bluePin, LOW);
+  }
+  else if(incomingByte != 0){
+    digitalWrite(bluePin, HIGH);
+  }  
+  delay(5);
+}
