@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Bluetooth LED</string>
+    <string name="on_button">Turn LED on </string>
+    <string name="off_button">Turn LED off</string>
+    <string name="showBTDevices">Show paired devices</string>
+    <string name="hideBTDevices">Hide paired devices</string>
+</resources>
