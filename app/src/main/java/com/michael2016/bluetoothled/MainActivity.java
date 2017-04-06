@@ -114,13 +114,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) mList.getItemAtPosition(position);
-                if(chosenDevice != null && chosenDevice.getName().equals(name))
-                    pushToast("You are already connected to that device!", 0);
-                else {
-                    chooseDevice(name);
-                    mConnectedDevice.setText(chosenDevice.getName());
-                    mConnectedDevice.setVisibility(View.VISIBLE);
-                }
+                chooseDevice(name);
+                mConnectedDevice.setText(chosenDevice.getName());
+                mConnectedDevice.setVisibility(View.VISIBLE);
 
                 if(!connectionState)
                     connect(chosenDevice);
@@ -132,12 +128,10 @@ public class MainActivity extends AppCompatActivity {
                     }catch(IOException e){
                         Log.e(TAG, "Could not close output stream.", e);
                     }
-
                 }
 
                 if(mBluetoothSocket != null)
                     connectionState = mBluetoothSocket.isConnected();
-
             }
         });
 
@@ -194,39 +188,14 @@ public class MainActivity extends AppCompatActivity {
             mConnectThread = null;
         }
 
-        if(mConnectedThread != null){
-            mConnectedThread.cancel();
-            mConnectedThread = null;
-        }
-
         mConnectThread = new ConnectThread(d);
         mConnectThread.start();
-    }
-
-
-    public synchronized void connected(BluetoothSocket s){
-
-        if(mConnectThread != null){
-            mConnectThread.cancel();
-            mConnectThread = null;
-        }
-
-        if(mConnectedThread != null){
-            mConnectedThread.cancel();
-            mConnectedThread = null;
-        }
-
-        mConnectedThread = new ConnectedThread(s);
-        mConnectedThread.start();
-
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
 
-        if(mConnectedThread != null)
-            mConnectedThread.cancel();
     }
 
     private void chooseDevice(String name){
@@ -349,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }  // end ConnectThread
 
+    /*
     private class ConnectedThread extends Thread{
 
         private final BluetoothSocket mmSocket;
@@ -433,5 +403,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }   // end ConnectedThread
+    */
+
+
 } // end MainActivity
 
